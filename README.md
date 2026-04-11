@@ -12,7 +12,7 @@ Both scripts generate a log file named `cipher.log`.
 ## Installation and Usage
 
 ```
-sudo apt install python3 -y 
+sudo apt install python3 -y #ubuntu/debian based
 
 
 #PIP
@@ -23,9 +23,8 @@ pip install cryptography
 
 #OR
 
-# APT / DNF
+# APT
 sudo apt install python3-cryptography -y
-sudo dnf install python3-cryptography -y
 
 
 python3 crypt.py
