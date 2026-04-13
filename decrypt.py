@@ -3,18 +3,13 @@ from cryptography.fernet import Fernet
 from crypt import generate_key_from_password, writeLog
 import getpass as gp #replacing 'input', to hide the text entered by the user
 import datetime
+from crypt import ignored_items
 
 def decrypt_directory(target_path: str, fernet_obj: Fernet):
     """
     Recursively searches for and decrypts all files
     with the .encrypted extension in the directory.
     """
-    # Ignore system/environment folders to save time
-    ignored_items = [
-        "__pycache__", "venv", "main.py", "decrypt.py",
-        "crypt.py", "crypt.exe", "decrypt.exe", ".git",
-        "ignore", "key.salt", "compose.yaml", ".gitignore", ".idea",  "cipher.log"
-    ]
 
     for file_name in os.listdir(target_path):
         # Skip folders in the ignored list
@@ -25,7 +20,7 @@ def decrypt_directory(target_path: str, fernet_obj: Fernet):
 
         # If it is a directory, apply recursion
         if os.path.isdir(full_path):
-            writeLog("./cipher.log", f"Entering directory: {file_name}")
+            writeLog("./cipher.log", f"[LOG] Searching the directory: {file_name}")
             decrypt_directory(full_path, fernet_obj)  # Recursive call
 
         # If it is a file and ends with .encrypted, decrypt it
@@ -48,23 +43,23 @@ def decrypt_directory(target_path: str, fernet_obj: Fernet):
                 # 5. Remove the encryted file
                 os.remove(full_path)
                 print(f"Restored: {os.path.basename(new_path)}")
-                writeLog("./cipher.log", f"Decrypted file: {os.path.basename(new_path)}")
+                writeLog("./cipher.log", f"[LOG] Decrypted file: {os.path.basename(new_path)}")
 
-            except Exception:
-                print(f"Error: Incorrect password or corrupted data for {file_name}")
-                writeLog("./cipher.log", f"Error while decrypting: {file_name}")
+            except Exception as e:
+                print(f"Error: Incorrect password or corrupted data for {file_name}: {e}")
+                writeLog("./cipher.log", f"[ERROR] Error while decrypting: {file_name}: {e}")
 
 if __name__ == "__main__":
     dt = datetime.datetime.now()
     writeLog("./cipher.log", f"--- Logs from decrypting process - {dt.strftime('%Y-%m-%d %H:%M:%S')} ---")
     if not os.path.exists("./key.salt"):
         print("Error: 'key.salt' not found! Cannot decrypt without the original salt.")
-        writeLog("./cipher.log", f"Error: 'key.salt' not found!")
+        writeLog("./cipher.log", f"[ERROR] Error: 'key.salt' not found!")
         exit(3)
 
     user_pass = gp.getpass("Enter the password to decrypt: ")
 
-    print("Generating key from user input... (This might take a second)")
+    print("Generating key from your input...")
     try:
         # Generate the key ONCE before traversing the folders.
         # Since key.salt exists, the imported function will load it automatically.
