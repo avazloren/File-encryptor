@@ -1,6 +1,6 @@
 # Encriptador de archivos ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-## Descripción
+## 📖​ Descripción
 
 Este programa sirve para cifrar (`crypt.py`) y descifrar (`decrypt.py`) archivos en una carpeta.
 
@@ -8,7 +8,17 @@ Por defecto ambos scripts leen los archivos del directorio en el que están ubic
 
 Ambos scripts generan un archivo con registros `cipher.log`.
 
-## Instalación y uso
+## ℹ️​ Sobre `key.salt`
+
+Es un archivo binario que contiene 16 bytes de datos aleatorios. 
+
+Se utiliza como entrada para el algoritmo `PBKDF2`, donde se mezcla con la contraseña del usuario para generar la clave de cifrado final. 
+
+Su función es evitar que dos contraseñas iguales generen la misma clave y proteger contra ataques de diccionario o tablas de búsqueda (`Rainbow Tables`).
+
+Es recomendable almacenar este archivo en una ubicación diferente para una mayor seguridad.
+
+## 🛠️ Instalación y uso
 
 ```
 sudo apt install python3 -y #ubuntu/debien based 

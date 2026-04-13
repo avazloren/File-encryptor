@@ -1,7 +1,7 @@
 # File Encryptor ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 
-## Description
+## 📖​ Description
 
 This program is used to encrypt (`crypt.py`) and decrypt (`decrypt.py`) files within a folder.
 
@@ -9,7 +9,18 @@ By default, both scripts read files from the directory where they are located. I
 
 Both scripts generate a log file named `cipher.log`.
 
-## Installation and Usage
+
+## ℹ️​ About `key.salt`
+
+This is a binary file containing 16 bytes of random data.
+
+It is used as an input for the `PBKDF2` algorithm, where it is mixed with the user's password to generate the final encryption key.
+
+Its purpose is to prevent identical passwords from generating the same key and to protect against dictionary attacks or lookup tables (`Rainbow Tables`).
+
+For enhanced security, it is recommended to store this file in a separate location
+
+## 🛠️ Installation and Usage
 
 ```
 sudo apt install python3 -y #ubuntu/debian based
