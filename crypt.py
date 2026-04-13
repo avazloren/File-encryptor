@@ -38,10 +38,10 @@ def readSalt(salt_path):
         with open(salt_path, "rb") as file:
             salt = file.read()
         print(f"Using existing salt from {salt_path}")
-        writeLog("./cipher.log",f"Using existing salt from {salt_path}")
+        writeLog("./cipher.log",f"[LOG] Using existing salt from {salt_path}")
     else:
         print("Salt file not found. Generatinng new one...")
-        writeLog("./cipher.log", f"Salt file not found. New one will be created")
+        writeLog("./cipher.log", f"[WARNING] Salt file not found. New one will be created")
         salt = newSalt("./key.salt")
 
 
@@ -54,10 +54,10 @@ def newSalt(salt_path):
         with open(salt_path, "wb") as file:
             file.write(salt)
         print("Generated new salt and saved to ./key.salt")
-        writeLog("./cipher.log", f"Generated new salt and saved to ./key.salt")
+        writeLog("./cipher.log", f"[LOG] Generated new salt and saved to ./key.salt")
     except Exception as e:
         print(f"Error generating new salt: {e}")
-        writeLog("./chipher.log", f"Error generating new salt: {e}")
+        writeLog("./chipher.log", f"[ERROR] Error generating new salt: {e}")
         exit(3)
 
     return salt
@@ -97,14 +97,14 @@ def encrypt_directory(target_path: str, fernet_obj: Fernet):
 
                 os.remove(full_path)
                 print(f"Encrypted: {file_name}")
-                writeLog("./cipher.log", f"Encrypted: {file_name}")
+                writeLog("./cipher.log", f"[LOG] Encrypted: {file_name}")
             except Exception as e:
                 print(f"Error encrypting {file_name}: {e}")
-                writeLog("./cipher.log", f"Error encrypting {file_name}: {e}")
+                writeLog("./cipher.log", f"[ERROR] Error encrypting {file_name}: {e}")
 
         elif os.path.isdir(full_path):
             # Pass 'full_path' to recursively encrypt subdirectories
-            writeLog("./cipher.log", f"Entering directory: {file_name}")
+            writeLog("./cipher.log", f"[LOG] Searching the directory: {file_name}")
             encrypt_directory(full_path, fernet_obj)
 
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
         decision = input("\nDo you want to continue? (Y/N): ")
 
         if decision.lower() == "y":
-            writeLog("./cipher.log","User decision: Y")
+            writeLog("./cipher.log","[LOG] User decision: Y")
             print("Encrypting...")
             # Generate key and initialize Fernet
             fernet_key = generate_key_from_password(user_pass)
@@ -151,6 +151,6 @@ if __name__ == "__main__":
             encrypt_directory(target_dir, fernet_instance)
             print("Encryption finished successfully.")
         else:
-            writeLog("./cipher.log", "User decision: N")
+            writeLog("./cipher.log", "[LOG] User decision: N")
             print("Operation canceled.")
             exit(1)
