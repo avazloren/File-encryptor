@@ -9,7 +9,7 @@ import datetime
 ignored_items = [
         "__pycache__", "venv", "main.py", "decrypt.py",
         "crypt.py", "crypt.exe", "decrypt.exe", ".git",
-        "ignore", "key.salt", "compose.yaml", ".gitignore", ".idea", "cipher.log"
+        "ignore", "key.salt", "compose.yaml", ".gitignore", ".idea", "cipher.log", ".venv", "myvenv", "LICENSE", "README.md", "README-es.md"
     ] #the script will ignore the items on this list
 
 

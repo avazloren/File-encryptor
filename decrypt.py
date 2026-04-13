@@ -3,18 +3,13 @@ from cryptography.fernet import Fernet
 from crypt import generate_key_from_password, writeLog
 import getpass as gp #replacing 'input', to hide the text entered by the user
 import datetime
+from crypt import ignored_items
 
 def decrypt_directory(target_path: str, fernet_obj: Fernet):
     """
     Recursively searches for and decrypts all files
     with the .encrypted extension in the directory.
     """
-    # Ignore system/environment folders to save time
-    ignored_items = [
-        "__pycache__", "venv", "main.py", "decrypt.py",
-        "crypt.py", "crypt.exe", "decrypt.exe", ".git",
-        "ignore", "key.salt", "compose.yaml", ".gitignore", ".idea",  "cipher.log"
-    ]
 
     for file_name in os.listdir(target_path):
         # Skip folders in the ignored list
