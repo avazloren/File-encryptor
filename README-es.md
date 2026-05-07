@@ -8,6 +8,8 @@ Por defecto ambos scripts leen los archivos del directorio en el que están ubic
 
 Ambos scripts generan un archivo con registros `cipher.log`.
 
+<img width="736" height="520" alt="image" src="https://github.com/user-attachments/assets/506693db-3bca-41ce-8032-ad438f1932cd" />
+
 ## ℹ️​ Sobre `key.salt`
 
 Es un archivo binario que contiene 16 bytes de datos aleatorios. 
