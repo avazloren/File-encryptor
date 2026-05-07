@@ -9,6 +9,8 @@ By default, both scripts read files from the directory where they are located. I
 
 Both scripts generate a log file named `cipher.log`.
 
+<img width="736" height="520" alt="image" src="https://github.com/user-attachments/assets/506693db-3bca-41ce-8032-ad438f1932cd" />
+
 
 ## ℹ️​ About `key.salt`
 
